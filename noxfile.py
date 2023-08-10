@@ -18,3 +18,10 @@ def test(session: nox.Session) -> None:
     session.run('coverage', 'erase')
     session.run('coverage', 'run', '-m', 'pytest', 'tests', *session.posargs)
     session.run('coverage', 'report')
+
+
+@nox.session()
+def build(session: nox.Session) -> None:
+    """Build the package for distribution."""
+    session.install('build[virtualenv]')
+    session.run('python', '-m', 'build')
