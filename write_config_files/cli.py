@@ -69,6 +69,7 @@ def write(
 
     file_system: FileSystem | DryRunFileWriter
     if dry_run:
+        logger.info('dry-run: no files will be written')
         file_system = DryRunFileWriter(logger)
     else:
         file_system = FileSystem(logger)
