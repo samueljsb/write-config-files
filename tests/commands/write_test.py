@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from testing.files import FakeFileWriter
+from testing.files import FakeFileSystem
 from testing.logging import CapturedLogger
 from testing.rendering import FakeRenderer
 from write_config_files.commands.write import Writer
@@ -9,7 +9,7 @@ from write_config_files.config import TemplateFile
 
 
 def test_write_file():
-    file_writer = FakeFileWriter()
+    file_writer = FakeFileSystem()
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -41,7 +41,7 @@ def test_write_file():
 
 
 def test_write_executable_file():
-    file_writer = FakeFileWriter()
+    file_writer = FakeFileSystem()
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -71,7 +71,7 @@ def test_write_executable_file():
 
 
 def test_overwrite_existing_file():
-    file_writer = FakeFileWriter(files={'output/existing-file': ''})
+    file_writer = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -100,7 +100,7 @@ def test_overwrite_existing_file():
 
 
 def test_skip_existing_file():
-    file_writer = FakeFileWriter(files={'output/existing-file': ''})
+    file_writer = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
     templates = TemplateConfig(
