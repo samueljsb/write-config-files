@@ -4,8 +4,6 @@ import os.path
 
 import attrs
 
-from .logging import Logger
-
 
 class FileSystemReader:
     def read_lines(self, file_path: str) -> list[str]:
@@ -18,8 +16,6 @@ class FileSystemReader:
 
 @attrs.frozen
 class FileSystem:
-    logger: Logger
-
     def file_exists(self, path: str) -> bool:
         return os.path.exists(path)
 
@@ -45,8 +41,6 @@ class FileSystem:
 
 @attrs.frozen
 class DryRunFileWriter:
-    logger: Logger
-
     def file_exists(self, path: str) -> bool:
         return os.path.exists(path)
 

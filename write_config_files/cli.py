@@ -70,9 +70,9 @@ def write(
     file_system: FileSystem | DryRunFileWriter
     if dry_run:
         logger.info('dry-run: no files will be written')
-        file_system = DryRunFileWriter(logger)
+        file_system = DryRunFileWriter()
     else:
-        file_system = FileSystem(logger)
+        file_system = FileSystem()
 
     writer = Writer(renderer, file_system, logger)
     writer.write(template_config, skip_if_exists=not force)
