@@ -67,13 +67,13 @@ def write(
 
     logger = _get_logger()
 
-    file_writer: FileSystem | DryRunFileWriter
+    file_system: FileSystem | DryRunFileWriter
     if dry_run:
-        file_writer = DryRunFileWriter(logger)
+        file_system = DryRunFileWriter(logger)
     else:
-        file_writer = FileSystem(logger)
+        file_system = FileSystem(logger)
 
-    writer = Writer(renderer, file_writer, logger)
+    writer = Writer(renderer, file_system, logger)
     writer.write(template_config, skip_if_exists=not force)
 
     return 0

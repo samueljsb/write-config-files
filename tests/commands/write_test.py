@@ -9,7 +9,7 @@ from write_config_files.config import TemplateFile
 
 
 def test_write_file():
-    file_writer = FakeFileSystem()
+    file_system = FakeFileSystem()
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -22,16 +22,16 @@ def test_write_file():
 
     writer = Writer(
         renderer=FakeRenderer('some content'),
-        file_writer=file_writer,
+        file_system=file_system,
         logger=logger,
     )
     writer.write(templates=templates, skip_if_exists=False)
 
-    assert file_writer.files == {
+    assert file_system.files == {
         'output/config-file': 'some content',
         'output/settings-file': 'some content',
     }
-    assert file_writer.executables == []
+    assert file_system.executables == []
 
     assert logger.captured == {
         'debug': [],
@@ -41,7 +41,7 @@ def test_write_file():
 
 
 def test_write_executable_file():
-    file_writer = FakeFileSystem()
+    file_system = FakeFileSystem()
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -53,15 +53,15 @@ def test_write_executable_file():
 
     writer = Writer(
         renderer=FakeRenderer('some content'),
-        file_writer=file_writer,
+        file_system=file_system,
         logger=logger,
     )
     writer.write(templates=templates, skip_if_exists=False)
 
-    assert file_writer.files == {
+    assert file_system.files == {
         'output/a-script': 'some content',
     }
-    assert file_writer.executables == ['output/a-script']
+    assert file_system.executables == ['output/a-script']
 
     assert logger.captured == {
         'debug': [],
@@ -71,7 +71,7 @@ def test_write_executable_file():
 
 
 def test_overwrite_existing_file():
-    file_writer = FakeFileSystem(files={'output/existing-file': ''})
+    file_system = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -83,12 +83,12 @@ def test_overwrite_existing_file():
 
     writer = Writer(
         renderer=FakeRenderer('new content'),
-        file_writer=file_writer,
+        file_system=file_system,
         logger=logger,
     )
     writer.write(templates=templates, skip_if_exists=False)
 
-    assert file_writer.files == {
+    assert file_system.files == {
         'output/existing-file': 'new content',  # new content written
     }
 
@@ -100,7 +100,7 @@ def test_overwrite_existing_file():
 
 
 def test_skip_existing_file():
-    file_writer = FakeFileSystem(files={'output/existing-file': ''})
+    file_system = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
     templates = TemplateConfig(
@@ -112,12 +112,12 @@ def test_skip_existing_file():
 
     writer = Writer(
         renderer=FakeRenderer('some content'),
-        file_writer=file_writer,
+        file_system=file_system,
         logger=logger,
     )
     writer.write(templates=templates, skip_if_exists=True)
 
-    assert file_writer.files == {
+    assert file_system.files == {
         'output/existing-file': '',  # not changed
     }
 

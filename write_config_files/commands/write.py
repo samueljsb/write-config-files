@@ -17,20 +17,20 @@ class FileSystem(Protocol):
 @attrs.frozen
 class Writer:
     renderer: TemplateRenderer
-    file_writer: FileSystem
+    file_system: FileSystem
     logger: Logger
 
     def write(self, templates: TemplateConfig, skip_if_exists: bool) -> None:
         for file in templates.files:
             rendered = self.renderer.render(file.template_name)
 
-            if skip_if_exists and self.file_writer.file_exists(file.destination_path):
+            if skip_if_exists and self.file_system.file_exists(file.destination_path):
                 self.logger.debug(
                     f'skipping {file.destination_path} because it already exists',
                 )
                 continue
 
-            self.file_writer.write_file(
+            self.file_system.write_file(
                 file.destination_path,
                 rendered,
                 file.is_executable,
