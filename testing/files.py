@@ -17,6 +17,12 @@ class FakeFileSystem:
         except KeyError:
             return []
 
+    def read_content(self, file_path: str) -> str:
+        try:
+            return self.files[file_path]
+        except KeyError:
+            return ''
+
     def write_file(self, path: str, content: str, is_executable: bool) -> None:
         self.files[path] = content
         if is_executable:

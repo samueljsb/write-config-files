@@ -16,6 +16,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   mode is active, a new message ("dry-run: no files will be written") is shown
   before the regular output.
 
+### Fixed
+
+- Files will not be overwritten if there is no change to be made.
+
 ## [0.1.0] - 2023-08-09
 
 Initial release.

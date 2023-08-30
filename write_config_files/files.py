@@ -23,6 +23,13 @@ class FileSystem:
     def file_exists(self, path: str) -> bool:
         return os.path.exists(path)
 
+    def read_content(self, path: str) -> str:
+        try:
+            with open(path) as f:
+                return f.read()
+        except FileNotFoundError:
+            return ''
+
     def write_file(
             self,
             path: str, content: str,
@@ -42,6 +49,13 @@ class DryRunFileWriter:
 
     def file_exists(self, path: str) -> bool:
         return os.path.exists(path)
+
+    def read_content(self, path: str) -> str:
+        try:
+            with open(path) as f:
+                return f.read()
+        except FileNotFoundError:
+            return ''
 
     def write_file(self, path: str, content: str, is_executable: bool) -> None:
         pass

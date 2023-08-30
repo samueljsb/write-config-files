@@ -99,6 +99,35 @@ def test_overwrite_existing_file():
     }
 
 
+def test_skip_unchanged_file():
+    file_system = FakeFileSystem(files={'output/existing-file': 'some content'})
+    logger = CapturedLogger()
+
+    templates = TemplateConfig(
+        root_dir='',
+        files=(
+            TemplateFile('templates/existing-file', 'output/existing-file', False),
+        ),
+    )
+
+    writer = Writer(
+        renderer=FakeRenderer('some content'),
+        file_system=file_system,
+        logger=logger,
+    )
+    writer.write(templates=templates, skip_if_exists=False)
+
+    assert file_system.files == {
+        'output/existing-file': 'some content',  # same content
+    }
+
+    assert logger.captured == {
+        'debug': ['skipping output/existing-file because there are no changes'],
+        'info': [],
+        'warn': [],
+    }
+
+
 def test_skip_existing_file():
     file_system = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
