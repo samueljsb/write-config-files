@@ -7,7 +7,7 @@ import attrs
 class MemoryReader:
     files: dict[str, list[str]]
 
-    def load_file(self, file_path: str) -> list[str]:
+    def read_lines(self, file_path: str) -> list[str]:
         try:
             return self.files[file_path]
         except KeyError:

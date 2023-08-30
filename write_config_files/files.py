@@ -8,7 +8,7 @@ from .logging import Logger
 
 
 class FileSystemReader:
-    def load_file(self, file_path: str) -> list[str]:
+    def read_lines(self, file_path: str) -> list[str]:
         try:
             with open(file_path) as f:
                 return f.readlines()
