@@ -5,15 +5,6 @@ import os.path
 import attrs
 
 
-class FileSystemReader:
-    def read_lines(self, file_path: str) -> list[str]:
-        try:
-            with open(file_path) as f:
-                return f.readlines()
-        except FileNotFoundError:
-            return []
-
-
 @attrs.frozen
 class FileSystem:
     def file_exists(self, path: str) -> bool:
@@ -25,6 +16,9 @@ class FileSystem:
                 return f.read()
         except FileNotFoundError:
             return ''
+
+    def read_lines(self, path: str) -> list[str]:
+        return self.read_content(path).splitlines(keepends=True)
 
     def write_file(
             self,

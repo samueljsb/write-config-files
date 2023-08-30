@@ -14,7 +14,6 @@ from .config import TemplateConfig
 from .config import YamlParser
 from .files import DryRunFileWriter
 from .files import FileSystem
-from .files import FileSystemReader
 from .logging import StdErrColorLogger
 from .logging import StdErrLogger
 from .printers import PagerPrinter
@@ -88,7 +87,7 @@ def diff(
     template_config = _load_template_config(template_config_path)
     context = _load_context(context_file_path)
 
-    reader = FileSystemReader()
+    reader = FileSystem()
     renderer = _get_renderer(template_config, context)
 
     printer: StdOutPrinter | PagerPrinter
