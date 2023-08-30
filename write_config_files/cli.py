@@ -13,8 +13,8 @@ from .commands.write import Writer
 from .config import TemplateConfig
 from .config import YamlParser
 from .files import DryRunFileWriter
+from .files import FileSystem
 from .files import FileSystemReader
-from .files import OsFileWriter
 from .logging import StdErrColorLogger
 from .logging import StdErrLogger
 from .printers import PagerPrinter
@@ -67,11 +67,11 @@ def write(
 
     logger = _get_logger()
 
-    file_writer: OsFileWriter | DryRunFileWriter
+    file_writer: FileSystem | DryRunFileWriter
     if dry_run:
         file_writer = DryRunFileWriter(logger)
     else:
-        file_writer = OsFileWriter(logger)
+        file_writer = FileSystem(logger)
 
     writer = Writer(renderer, file_writer, logger)
     writer.write(template_config, skip_if_exists=not force)

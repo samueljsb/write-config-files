@@ -17,7 +17,7 @@ class FileSystemReader:
 
 
 @attrs.frozen
-class OsFileWriter:
+class FileSystem:
     logger: Logger
 
     def file_exists(self, path: str) -> bool:

@@ -4,16 +4,16 @@ import os
 from pathlib import Path
 
 from testing.logging import CapturedLogger
-from write_config_files.files import OsFileWriter
+from write_config_files.files import FileSystem
 
 
-class TestOsFileWriter:
+class TestFileSystem:
     def test_write_new_file(self, tmp_path: Path):
         logger = CapturedLogger()
 
         output_file = tmp_path / 'output'
 
-        writer = OsFileWriter(logger)
+        writer = FileSystem(logger)
         writer.write_file(str(output_file), 'some content', is_executable=False)
 
         with open(output_file) as f:
@@ -33,7 +33,7 @@ class TestOsFileWriter:
         with open(output_file, 'w') as f:
             f.write('pre-existing content')
 
-        writer = OsFileWriter(logger)
+        writer = FileSystem(logger)
         writer.write_file(str(output_file), 'new content', is_executable=False)
 
         with open(output_file) as f:
@@ -50,7 +50,7 @@ class TestOsFileWriter:
 
         output_file = tmp_path / 'output'
 
-        writer = OsFileWriter(logger)
+        writer = FileSystem(logger)
         writer.write_file(str(output_file), 'some content', is_executable=True)
 
         # check the fiel is executable
