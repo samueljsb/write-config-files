@@ -148,10 +148,10 @@ def test_write_dry_run(
     assert (
         captured.err
         == f"""\
-\033[0mwould write {output_dir}/new_file.txt\033[0m
+\033[0mwriting {output_dir}/new_file.txt\033[0m
 \033[2mskipping {output_dir}/existing_file.txt because it already exists\033[0m
-\033[0mwould write {output_dir}/subdir/custom.txt\033[0m
-\033[0mwould write /{template_dir}/elsewhere/absolute.txt\033[0m
+\033[0mwriting {output_dir}/subdir/custom.txt\033[0m
+\033[0mwriting /{template_dir}/elsewhere/absolute.txt\033[0m
 """
     )
 
@@ -175,9 +175,9 @@ def test_write_force_dry_run(
     assert (
         captured.err
         == f"""\
-\033[0mwould write {output_dir}/new_file.txt\033[0m
-\033[93mwould overwrite {output_dir}/existing_file.txt\033[0m
-\033[0mwould write {output_dir}/subdir/custom.txt\033[0m
-\033[0mwould write /{template_dir}/elsewhere/absolute.txt\033[0m
+\033[0mwriting {output_dir}/new_file.txt\033[0m
+\033[93moverwriting {output_dir}/existing_file.txt\033[0m
+\033[0mwriting {output_dir}/subdir/custom.txt\033[0m
+\033[0mwriting /{template_dir}/elsewhere/absolute.txt\033[0m
 """
     )

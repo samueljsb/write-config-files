@@ -35,7 +35,7 @@ def test_write_file():
 
     assert logger.captured == {
         'debug': [],
-        'info': [],
+        'info': ['writing output/config-file', 'writing output/settings-file'],
         'warn': [],
     }
 
@@ -65,7 +65,7 @@ def test_write_executable_file():
 
     assert logger.captured == {
         'debug': [],
-        'info': [],
+        'info': ['writing output/a-script'],
         'warn': [],
     }
 
@@ -95,7 +95,7 @@ def test_overwrite_existing_file():
     assert logger.captured == {
         'debug': [],
         'info': [],
-        'warn': [],
+        'warn': ['overwriting output/existing-file'],
     }
 
 

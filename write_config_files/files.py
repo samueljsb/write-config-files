@@ -28,11 +28,6 @@ class FileSystem:
             path: str, content: str,
             is_executable: bool,
     ) -> None:
-        if self.file_exists(path):
-            self.logger.warn(f'overwriting {path}')
-        else:
-            self.logger.info(f'writing {path}')
-
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
             f.write(content)
@@ -49,7 +44,4 @@ class DryRunFileWriter:
         return os.path.exists(path)
 
     def write_file(self, path: str, content: str, is_executable: bool) -> None:
-        if self.file_exists(path):
-            self.logger.warn(f'would overwrite {path}')
-        else:
-            self.logger.info(f'would write {path}')
+        pass

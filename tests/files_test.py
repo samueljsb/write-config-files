@@ -21,7 +21,7 @@ class TestFileSystem:
 
         assert logger.captured == {
             'debug': [],
-            'info': [f'writing {output_file}'],
+            'info': [],
             'warn': [],
         }
 
@@ -42,7 +42,7 @@ class TestFileSystem:
         assert logger.captured == {
             'debug': [],
             'info': [],
-            'warn': [f'overwriting {output_file}'],
+            'warn': [],
         }
 
     def test_make_file_executable(self, tmp_path: Path):

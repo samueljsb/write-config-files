@@ -24,11 +24,17 @@ class Writer:
         for file in templates.files:
             rendered = self.renderer.render(file.template_name)
 
-            if skip_if_exists and self.file_system.file_exists(file.destination_path):
+            already_exists = self.file_system.file_exists(file.destination_path)
+
+            if not already_exists:
+                self.logger.info(f'writing {file.destination_path}')
+            elif skip_if_exists:
                 self.logger.debug(
                     f'skipping {file.destination_path} because it already exists',
                 )
                 continue
+            else:
+                self.logger.warn(f'overwriting {file.destination_path}')
 
             self.file_system.write_file(
                 file.destination_path,
