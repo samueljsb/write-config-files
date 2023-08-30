@@ -1,17 +1,23 @@
 from __future__ import annotations
 
+from typing import Protocol
+
 import attrs
 
 from ..config import TemplateConfig
-from ..files import FileWriter
 from ..logging import Logger
 from ..rendering import TemplateRenderer
+
+
+class FileSystem(Protocol):
+    def file_exists(self, path: str) -> bool: ...
+    def write_file(self, path: str, content: str, is_executable: bool) -> None: ...
 
 
 @attrs.frozen
 class Writer:
     renderer: TemplateRenderer
-    file_writer: FileWriter
+    file_writer: FileSystem
     logger: Logger
 
     def write(self, templates: TemplateConfig, skip_if_exists: bool) -> None:

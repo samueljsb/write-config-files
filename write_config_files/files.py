@@ -1,15 +1,10 @@
 from __future__ import annotations
 
 import os.path
-from typing import Protocol
 
 import attrs
 
 from .logging import Logger
-
-
-class Reader(Protocol):
-    def load_file(self, file_path: str) -> list[str]: ...
 
 
 class FileSystemReader:
@@ -19,11 +14,6 @@ class FileSystemReader:
                 return f.readlines()
         except FileNotFoundError:
             return []
-
-
-class FileWriter(Protocol):
-    def file_exists(self, path: str) -> bool: ...
-    def write_file(self, path: str, content: str, is_executable: bool) -> None: ...
 
 
 @attrs.frozen

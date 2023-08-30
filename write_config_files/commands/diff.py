@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import difflib
+from typing import Protocol
 
 import attrs
 
 from ..config import TemplateConfig
-from ..files import Reader
 from ..printers import DiffPrinter
 from ..rendering import TemplateRenderer
+
+
+class Reader(Protocol):
+    def load_file(self, file_path: str) -> list[str]: ...
 
 
 @attrs.frozen
