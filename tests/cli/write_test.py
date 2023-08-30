@@ -12,21 +12,25 @@ PLAIN_FILE_CONTENT = """\
 some text and a newline
 """
 
+TEMPLATE_CONTENT = """\
+some new text and a newline
+"""
+
 
 def _setup(template_dir: Path, output_dir: Path, tmp_path: Path) -> tuple[Path, Path]:
     new_template = template_dir / 'new_file.txt'
-    new_template.write_text(PLAIN_FILE_CONTENT)
+    new_template.write_text(TEMPLATE_CONTENT)
 
     existing_template = template_dir / 'existing_file.txt'
-    existing_template.write_text(PLAIN_FILE_CONTENT)
+    existing_template.write_text(TEMPLATE_CONTENT)
     existing_file = output_dir / 'existing_file.txt'
     existing_file.write_text(PLAIN_FILE_CONTENT)
 
     custom_subdir_template = template_dir / 'file_in_custom_subdir.txt'
-    custom_subdir_template.write_text(PLAIN_FILE_CONTENT)
+    custom_subdir_template.write_text(TEMPLATE_CONTENT)
 
     abs_path_template = template_dir / 'file_with_abs_path.txt'
-    abs_path_template.write_text(PLAIN_FILE_CONTENT)
+    abs_path_template.write_text(TEMPLATE_CONTENT)
 
     templates_file = tmp_path / 'templates.yaml'
     templates_file.write_text(
@@ -148,10 +152,11 @@ def test_write_dry_run(
     assert (
         captured.err
         == f"""\
-\033[0mwould write {output_dir}/new_file.txt\033[0m
+\033[0mdry-run: no files will be written\033[0m
+\033[0mwriting {output_dir}/new_file.txt\033[0m
 \033[2mskipping {output_dir}/existing_file.txt because it already exists\033[0m
-\033[0mwould write {output_dir}/subdir/custom.txt\033[0m
-\033[0mwould write /{template_dir}/elsewhere/absolute.txt\033[0m
+\033[0mwriting {output_dir}/subdir/custom.txt\033[0m
+\033[0mwriting /{template_dir}/elsewhere/absolute.txt\033[0m
 """
     )
 
@@ -175,9 +180,10 @@ def test_write_force_dry_run(
     assert (
         captured.err
         == f"""\
-\033[0mwould write {output_dir}/new_file.txt\033[0m
-\033[93mwould overwrite {output_dir}/existing_file.txt\033[0m
-\033[0mwould write {output_dir}/subdir/custom.txt\033[0m
-\033[0mwould write /{template_dir}/elsewhere/absolute.txt\033[0m
+\033[0mdry-run: no files will be written\033[0m
+\033[0mwriting {output_dir}/new_file.txt\033[0m
+\033[93moverwriting {output_dir}/existing_file.txt\033[0m
+\033[0mwriting {output_dir}/subdir/custom.txt\033[0m
+\033[0mwriting /{template_dir}/elsewhere/absolute.txt\033[0m
 """
     )

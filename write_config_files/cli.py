@@ -13,8 +13,7 @@ from .commands.write import Writer
 from .config import TemplateConfig
 from .config import YamlParser
 from .files import DryRunFileWriter
-from .files import FileSystemReader
-from .files import OsFileWriter
+from .files import FileSystem
 from .logging import StdErrColorLogger
 from .logging import StdErrLogger
 from .printers import PagerPrinter
@@ -67,13 +66,14 @@ def write(
 
     logger = _get_logger()
 
-    file_writer: OsFileWriter | DryRunFileWriter
+    file_system: FileSystem | DryRunFileWriter
     if dry_run:
-        file_writer = DryRunFileWriter(logger)
+        logger.info('dry-run: no files will be written')
+        file_system = DryRunFileWriter()
     else:
-        file_writer = OsFileWriter(logger)
+        file_system = FileSystem()
 
-    writer = Writer(renderer, file_writer, logger)
+    writer = Writer(renderer, file_system, logger)
     writer.write(template_config, skip_if_exists=not force)
 
     return 0
@@ -87,7 +87,7 @@ def diff(
     template_config = _load_template_config(template_config_path)
     context = _load_context(context_file_path)
 
-    reader = FileSystemReader()
+    reader = FileSystem()
     renderer = _get_renderer(template_config, context)
 
     printer: StdOutPrinter | PagerPrinter

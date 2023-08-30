@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from testing.files import MemoryReader
+from testing.files import FakeFileSystem
 from testing.printing import CapturedPrinter
 from testing.rendering import FakeRenderer
 from write_config_files.commands.diff import Differ
@@ -9,7 +9,7 @@ from write_config_files.config import TemplateFile
 
 
 def test_diff_when_no_change():
-    reader = MemoryReader(files={'no-change': ['file content\n']})
+    reader = FakeFileSystem(files={'no-change': 'file content\n'})
     printer = CapturedPrinter()
 
     templates = TemplateConfig(
@@ -28,7 +28,7 @@ def test_diff_when_no_change():
 
 
 def test_diff_when_file_changed():
-    reader = MemoryReader(files={'has-change': ['different content\n']})
+    reader = FakeFileSystem(files={'has-change': 'different content\n'})
     printer = CapturedPrinter()
 
     templates = TemplateConfig(
@@ -55,7 +55,7 @@ def test_diff_when_file_changed():
 
 
 def test_diff_for_new_file():
-    reader = MemoryReader(files={})
+    reader = FakeFileSystem(files={})
     printer = CapturedPrinter()
 
     templates = TemplateConfig(
