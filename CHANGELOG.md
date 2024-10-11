@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+- Support for Python 3.13.
+
+### Removed
+
+- Support for Python 3.8.
+
 ## [0.3.0] - 2023-08-30
 
 ### Changed
