@@ -10,14 +10,11 @@ def lint(session: nox.Session) -> None:
     session.run('pre-commit', 'run', '--all-files')
 
 
-@nox.session(python=['3.9', '3.10', '3.11', '3.12', '3.13'], reuse_venv=True)
+@nox.session(reuse_venv=True)
 def test(session: nox.Session) -> None:
     """Run tests."""
-    session.install('.')
-    session.install('-r', 'requirements-dev.txt')
-    session.run('coverage', 'erase')
-    session.run('coverage', 'run', '-m', 'pytest', 'tests', *session.posargs)
-    session.run('coverage', 'report')
+    session.install('tox')
+    session.run('tox', 'run-parallel', '--', *session.posargs)
 
 
 @nox.session()
