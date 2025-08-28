@@ -13,15 +13,19 @@ concurrency:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python }}
+        python-version: |
+          3.9
+          3.10
+          3.11
+          3.12
+          3.13
         allow-prereleases: true
-    - run: python -Im pip install nox
-    - run: python -Im nox -s test --python ${{ matrix.python }}
+    - run: python -m pip install tox
+    - run: tox run-parallel --parallel-no-spinner
+      env:
+        FORCE_COLOR: true
