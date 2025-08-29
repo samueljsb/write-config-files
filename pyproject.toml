@@ -1,0 +1,48 @@
+# Mypy
+# ====
+
+[tool.mypy]
+files = "."
+exclude = [
+  "build/",
+  "venv",
+]
+
+pretty = true
+show_error_codes = true
+
+enable_error_code = [  # pragma: alphabetize
+  "truthy-bool",
+]
+strict = true
+ignore_missing_imports = true
+no_implicit_optional = true
+strict_equality = true
+warn_unreachable = true
+warn_no_return = true
+
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+
+# Pytest
+# ======
+
+[tool.pytest.ini_options]
+addopts = [
+  "--strict-markers",
+]
+filterwarnings = [
+  "error::DeprecationWarning",
+  "error::pytest.PytestCollectionWarning",
+]
+xfail_strict = true
+
+
+# Coverage
+# ========
+
+[tool.coverage.run]
+plugins = ["covdefaults"]
