@@ -66,4 +66,4 @@ class YamlParser:
         )
 
     def parse_context(self, file_content: str) -> dict[str, Any]:
-        return yaml.safe_load(file_content)
+        return yaml.safe_load(file_content)  # type: ignore[no-any-return]
