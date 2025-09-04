@@ -12,7 +12,10 @@ pretty = true
 show_error_codes = true
 
 enable_error_code = [  # pragma: alphabetize
+  "ignore-without-code",
+  "possibly-undefined",
   "truthy-bool",
+  "truthy-iterable",
 ]
 strict = true
 ignore_missing_imports = true
