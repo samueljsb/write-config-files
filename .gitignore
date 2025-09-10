@@ -1,8 +1,11 @@
 *.egg-info
 *.pyc
-venv/*
-
-.coverage
 
 build/
 dist/
+
+venv/
+
+.tox/
+.coverage
+.coverage.*
