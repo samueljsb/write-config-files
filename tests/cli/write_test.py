@@ -60,7 +60,7 @@ def test_write(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     ret = cli.main(['write', '-t', str(templates_file), '-c', str(context_file)])
@@ -85,7 +85,7 @@ def test_write_no_color(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     with mock.patch.dict(os.environ, {'NO_COLOR': '1'}):
@@ -111,7 +111,7 @@ def test_write_force(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     ret = cli.main(
@@ -138,7 +138,7 @@ def test_write_dry_run(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     ret = cli.main(
@@ -166,7 +166,7 @@ def test_write_force_dry_run(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     ret = cli.main(

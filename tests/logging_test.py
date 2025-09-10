@@ -7,21 +7,21 @@ from write_config_files.logging import StdErrLogger
 
 
 class TestStdErrLogger:
-    def test_debug(self, capfd: CaptureFixture[str]):
+    def test_debug(self, capfd: CaptureFixture[str]) -> None:
         StdErrLogger().debug('some message')
 
         captured = capfd.readouterr()
         assert captured.out == ''
         assert captured.err == 'some message\n'
 
-    def test_info(self, capfd: CaptureFixture[str]):
+    def test_info(self, capfd: CaptureFixture[str]) -> None:
         StdErrLogger().info('some message')
 
         captured = capfd.readouterr()
         assert captured.out == ''
         assert captured.err == 'some message\n'
 
-    def test_warn(self, capfd: CaptureFixture[str]):
+    def test_warn(self, capfd: CaptureFixture[str]) -> None:
         StdErrLogger().warn('some message')
 
         captured = capfd.readouterr()
@@ -30,21 +30,21 @@ class TestStdErrLogger:
 
 
 class TestStdErrColorLogger:
-    def test_debug(self, capfd: CaptureFixture[str]):
+    def test_debug(self, capfd: CaptureFixture[str]) -> None:
         StdErrColorLogger().debug('some message')
 
         captured = capfd.readouterr()
         assert captured.out == ''
         assert captured.err == '\033[2msome message\033[0m\n'
 
-    def test_info(self, capfd: CaptureFixture[str]):
+    def test_info(self, capfd: CaptureFixture[str]) -> None:
         StdErrColorLogger().info('some message')
 
         captured = capfd.readouterr()
         assert captured.out == ''
         assert captured.err == '\033[0msome message\033[0m\n'
 
-    def test_warn(self, capfd: CaptureFixture[str]):
+    def test_warn(self, capfd: CaptureFixture[str]) -> None:
         StdErrColorLogger().warn('some message')
 
         captured = capfd.readouterr()

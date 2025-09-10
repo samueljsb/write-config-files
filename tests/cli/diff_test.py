@@ -73,7 +73,7 @@ def test_diff(
     output_dir: Path,
     tmp_path: Path,
     capfd: CaptureFixture[str],
-):
+) -> None:
     templates_file, context_file = _setup(template_dir, output_dir, tmp_path)
 
     ret = cli.main(

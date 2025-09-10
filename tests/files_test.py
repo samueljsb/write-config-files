@@ -7,7 +7,7 @@ from write_config_files.files import FileSystem
 
 
 class TestFileSystem:
-    def test_write_new_file(self, tmp_path: Path):
+    def test_write_new_file(self, tmp_path: Path) -> None:
         output_file = tmp_path / 'output'
 
         writer = FileSystem()
@@ -16,7 +16,7 @@ class TestFileSystem:
         with open(output_file) as f:
             assert f.read() == 'some content'
 
-    def test_overwrite_existing_file(self, tmp_path: Path):
+    def test_overwrite_existing_file(self, tmp_path: Path) -> None:
         output_file = tmp_path / 'output'
 
         with open(output_file, 'w') as f:
@@ -28,7 +28,7 @@ class TestFileSystem:
         with open(output_file) as f:
             assert f.read() == 'new content'
 
-    def test_make_file_executable(self, tmp_path: Path):
+    def test_make_file_executable(self, tmp_path: Path) -> None:
         output_file = tmp_path / 'output'
 
         writer = FileSystem()

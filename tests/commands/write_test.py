@@ -8,7 +8,7 @@ from write_config_files.config import TemplateConfig
 from write_config_files.config import TemplateFile
 
 
-def test_write_file():
+def test_write_file() -> None:
     file_system = FakeFileSystem()
     logger = CapturedLogger()
 
@@ -40,7 +40,7 @@ def test_write_file():
     }
 
 
-def test_write_executable_file():
+def test_write_executable_file() -> None:
     file_system = FakeFileSystem()
     logger = CapturedLogger()
 
@@ -70,7 +70,7 @@ def test_write_executable_file():
     }
 
 
-def test_overwrite_existing_file():
+def test_overwrite_existing_file() -> None:
     file_system = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
@@ -99,7 +99,7 @@ def test_overwrite_existing_file():
     }
 
 
-def test_skip_unchanged_file():
+def test_skip_unchanged_file() -> None:
     file_system = FakeFileSystem(files={'output/existing-file': 'some content'})
     logger = CapturedLogger()
 
@@ -128,7 +128,7 @@ def test_skip_unchanged_file():
     }
 
 
-def test_skip_existing_file():
+def test_skip_existing_file() -> None:
     file_system = FakeFileSystem(files={'output/existing-file': ''})
     logger = CapturedLogger()
 
