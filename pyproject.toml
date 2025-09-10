@@ -1,3 +1,51 @@
+[project]
+name = "write_config_files"
+version = "0.4.0"
+authors = [
+    {name = "Samuel Searles-Bryant", email = "sam@samueljsb.co.uk"},
+]
+description = "render and write out templated config files"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+classifiers = [  # pragma: alphabetize
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
+requires-python = ">=3.9"
+dependencies = [  # pragma: alphabetize[case-insensitive]
+  "attrs",
+  "Jinja2",
+  "PyYAML",
+]
+
+[project.scripts]
+write-config-files = "write_config_files.cli:main"
+
+[project.urls]
+Source = "https://github.com/samueljsb/write-config-files"
+Changelog = "https://github.com/samueljsb/write-config-files/blob/main/CHANGELOG.md"
+
+
+# Packaging
+# ---------
+
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["write_config_files"]
+# This is the default but we include it to be explicit.
+include-package-data = true
+
+
 # Development
 # -----------
 
