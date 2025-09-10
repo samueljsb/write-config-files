@@ -55,6 +55,7 @@ addopts = [
 ]
 filterwarnings = [
   "error::DeprecationWarning",
+  "error::SyntaxWarning",
   "error::pytest.PytestCollectionWarning",
 ]
 xfail_strict = true
